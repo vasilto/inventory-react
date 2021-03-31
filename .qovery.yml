@@ -1,0 +1,11 @@
+---
+application:
+  name: "inventory-react"
+  project: "medinvent-frontend"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-inventory-react"
+  routes:
+  - application_name: "inventory-react"
+    paths:
+    - "/*"
