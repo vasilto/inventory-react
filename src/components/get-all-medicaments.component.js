@@ -9,6 +9,8 @@ function isIt(boolean){
     } else return "Не";
 };
 
+var backentURI = "https://main-invento-m5k5bapnre712ycg-gtw.qovery.io/";
+
 const Medicament = props => (
     
 
@@ -28,7 +30,7 @@ export default class MedicamentsList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/medicaments/')
+        axios.get(`${backentURI}medicaments/`)
             .then( response => {
                 this.setState({medicaments: response.data})
             })
