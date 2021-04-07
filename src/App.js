@@ -12,7 +12,7 @@ function App() {
       <div className="container">
         <Navbar />
         <br/>
-        <Route path="/" exact component={MedicamentsList} />
+        <Route path="/all" exact component={MedicamentsList} />
         <Route path="/add" component={AddMedicaments} />
       </div>
     </Router>
