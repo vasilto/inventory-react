@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/inventory-react/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/inventory-react/static/js/main.4b46f118.chunk.js",
-    "main.js.map": "/inventory-react/static/js/main.4b46f118.chunk.js.map",
+    "main.css": "/inventory-react/static/css/main.801cf490.chunk.css",
+    "main.js": "/inventory-react/static/js/main.fe6cc961.chunk.js",
+    "main.js.map": "/inventory-react/static/js/main.fe6cc961.chunk.js.map",
     "runtime-main.js": "/inventory-react/static/js/runtime-main.64755b05.js",
     "runtime-main.js.map": "/inventory-react/static/js/runtime-main.64755b05.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/inventory-react/static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.19c2b2a5.chunk.js": "/inventory-react/static/js/2.19c2b2a5.chunk.js",
-    "static/js/2.19c2b2a5.chunk.js.map": "/inventory-react/static/js/2.19c2b2a5.chunk.js.map",
+    "static/js/2.2c634951.chunk.js": "/inventory-react/static/js/2.2c634951.chunk.js",
+    "static/js/2.2c634951.chunk.js.map": "/inventory-react/static/js/2.2c634951.chunk.js.map",
     "index.html": "/inventory-react/index.html",
     "static/css/2.4c97ca4f.chunk.css.map": "/inventory-react/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.6dea0f05.chunk.css.map": "/inventory-react/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.19c2b2a5.chunk.js.LICENSE.txt": "/inventory-react/static/js/2.19c2b2a5.chunk.js.LICENSE.txt"
+    "static/css/main.801cf490.chunk.css.map": "/inventory-react/static/css/main.801cf490.chunk.css.map",
+    "static/js/2.2c634951.chunk.js.LICENSE.txt": "/inventory-react/static/js/2.2c634951.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.64755b05.js",
     "static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.19c2b2a5.chunk.js",
-    "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.4b46f118.chunk.js"
+    "static/js/2.2c634951.chunk.js",
+    "static/css/main.801cf490.chunk.css",
+    "static/js/main.fe6cc961.chunk.js"
   ]
 }
