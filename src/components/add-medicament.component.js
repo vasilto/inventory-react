@@ -59,7 +59,7 @@ const AddMedicament = () => {
 
     const verifyIsMedicamentAddedAsync = useCallback(
         async () => {
-            axios.get(`https://main-invento-m5k5bapnre712ycg-gtw.qovery.io/${name}`).
+            axios.get(`https://main-invento-m5k5bapnre712ycg-gtw.qovery.io/medicaments/${name}`).
                 then(response => {
                     console.log(response)
                     if (response.status === 200) {
@@ -73,7 +73,7 @@ const AddMedicament = () => {
 
 
     const addMedicamentAsync = useCallback(async () => {
-        axios.post('https://main-invento-m5k5bapnre712ycg-gtw.qovery.io/add', {
+        axios.post('https://main-invento-m5k5bapnre712ycg-gtw.qovery.io/medicaments/add', {
             name: name,
             expirationDate: expirationDate,
             description: description,
