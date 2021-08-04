@@ -85,6 +85,7 @@ const AddMedicament = () => {
             console.log(response)
             console.log(response.status)
             statusCode = response.status
+            console.log(`The status code after getting response.status e ${statusCode}// response.status e ${response.status}`)
         }).catch((error) => {
             console.log(error)
         })
