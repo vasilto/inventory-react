@@ -9,7 +9,7 @@ function isIt(boolean){
     } else return "Не";
 };
 
-var backendURI = "https://main-invento-m5k5bapnre712ycg-gtw.qovery.io/";
+var backendURI = "http://localhost:5000/";
 
 const Medicament = props => (
     

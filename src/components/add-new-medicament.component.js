@@ -12,6 +12,7 @@ import CustomInputComponent from "./CustomInputComponent";
 import CustomTextAreaComponent from "./CustomTextAreaComponent";
 import CustomToggleComponent from "./CustomToggleComponent";
 import './style.css'
+const axios = require('axios').default;
 
 
 export default class AddNewMedicament extends Component {
@@ -19,22 +20,50 @@ export default class AddNewMedicament extends Component {
         super(props);
     }
 
+    categories = [
+        { value: 'feverPain', label: 'Болка/Температура' },
+        { value: 'rheum', label: 'Хрема' },
+        { value: 'cough', label: 'Кашлица' },
+        { value: 'soreThroat', label: 'Болки в гърлото' },
+        { value: 'mussclePain', label: 'Болки в ставите, мускулите' },
+        { value: 'antiAlergic', label: 'Противоалергични' },
+        { value: 'sedatives', label: 'Успокоителни' },
+        { value: 'immune', label: 'Имуностимулант' },
+        { value: 'puke', label: 'Повръщане' },
+        { value: 'indigestion', label: 'Разстройство' },
+        { value: 'other', label: 'Друго' }
+    ]
+
+    types = [
+        { value: 'antibiotic', label: 'Антибиотик' },
+        { value: 'probiotic', label: 'Пробиотик' },
+        { value: 'homeopatic', label: 'Хомеопатия' },
+        { value: 'bilka', label: 'Билково (не инвазивно)' },
+        { value: 'drug', label: 'Лекарство' },
+        { value: 'other', label: 'Друго' }
+        ]
+
     handleSubmit = (event) => {
         event.preventDefault()
         var medicament = {
-            type: event.target.elements.selectComponent.value,
             name: event.target.elements.mediName.value,
-            link: event.target.elements.mediList.value,
+            manufacturer: event.target.elements.manufacturer.value,
             description: event.target.elements.mediDesc.value,
-            isAvailable: event.target.elements.isAvailable.checked,
+            type: event.target.elements.types.value,
+            category:event.target.elements.categories.value,
+            expirationDate: event.target.elements.expirationDatePicker.value,
             doesExpireAfterOpen: event.target.elements.doesExpireAfterOpen.checked,
-            expirationDate: event.target.elements.datePicker.value
+            expirationDateAfterOpen:event.target.elements.AfterOpenExpirationDatePicker.value,
+            isRunningOut: event.target.elements.isRunningOut.checked,
+            isAvailable: event.target.elements.isAvailable.checked
         }
         console.log(medicament)
 
+        const response = axios.post("http://localhost:5000/medicaments/add", medicament)
+        .catch(err=> {
+            console.error(err);
+        })
     }
-
-
 
     render(){
 
@@ -44,7 +73,16 @@ export default class AddNewMedicament extends Component {
                     <Form.Row className="row-xs-3">  
                         <Col> 
                             <Form.Group>
-                                <CustomSelectComponent name="selectComponent"/>
+                                <CustomSelectComponent 
+                                name="categories"
+                                options={this.categories}/>
+                            </Form.Group>
+                        </Col>
+                        <Col> 
+                            <Form.Group>
+                                <CustomSelectComponent 
+                                name="types"
+                                options={this.types}/>
                             </Form.Group>
                         </Col>
                         <Col>
@@ -55,8 +93,8 @@ export default class AddNewMedicament extends Component {
                         </Col>
                         <Col>
                             <CustomInputComponent
-                            placeholder="Линк към листовката"
-                            name="mediList"
+                            placeholder="Производител"
+                            name="manufacturer"
                             />
                         </Col>
                     </Form.Row> 
@@ -66,30 +104,46 @@ export default class AddNewMedicament extends Component {
                                 <CustomTextAreaComponent
                                 placeholder="Описание" 
                                 name="mediDesc"
+                                rows={6}
                                 />                                
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group>
+                                <DatePickerComponent
+                                name="expirationDatePicker"
+                                label="Годен до"/>
+                            </Form.Group>
+
+                            <Form.Group>
+                                <DatePickerComponent
+                                name="AfterOpenExpirationDatePicker"
+                                label="годен до - след отваряне"/>
                             </Form.Group>
                         </Col>
                     </Form.Row>
                     <Form.Row>
                         
-                        <Col>
-                            <Form.Group>
-                                <DatePickerComponent
-                                name="datePicker"/>
-                            </Form.Group>
-                        </Col>
+                        
                         <Col>
                             <Form.Row>
                                 <CustomToggleComponent
                                 id="tg-1"
                                 name="isAvailable"
-                                label="налично ли е"/>
+                                label="Налично ли е"/>
                             </Form.Row>
                             <Form.Row>
                                 <CustomToggleComponent
                                 id="tg-2"
                                 name="doesExpireAfterOpen"
-                                label="налично ли е2"/>
+                                label="Разваля ли се след отваряне"/>
+                            </Form.Row>
+
+                            <Form.Row>
+                                <CustomToggleComponent
+                                id="tg-2"
+                                name="isRunningOut"
+                                label="Свършва ли"/>
                             </Form.Row>
                         </Col>
 

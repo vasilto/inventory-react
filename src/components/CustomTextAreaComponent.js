@@ -13,6 +13,7 @@ const CustomTextAreaComponent = (params) => {
             name={params.name}
             onChange={handleOnChange}
             value={textAreaState.value}
+            rows={params.rows}
             />
     }
     return (textAreaComponent(params))

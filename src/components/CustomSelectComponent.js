@@ -1,14 +1,9 @@
 import React, {useState} from 'react'
 import {Select} from 'react-rainbow-components'
 
-
-const options = [
-    { value: 'option 1', label: 'Option 1' },
-    { value: 'option 2', label: 'Option 2' },
-    { value: 'option 3', label: 'Option 3' },
-];
-
 const CustomSelectComponent = (params) => {
+    const options = params.options;
+
     const [option, setOption] = useState(options[0]);
 
     function HandleOnChange(event){

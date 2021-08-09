@@ -13,9 +13,11 @@ export default class DatePickerComponent extends React.Component {
 				<DatePicker
 					id="DatePicker"
 					value={this.state.date}
-					label="Expiration Date"
+					label={this.props.label}
 					onChange={value => this.setState({ date: value })} 
-					name={this.props.name}/>
+					name={this.props.name}
+					locale="en-US"/>
+					
 			</div>
 		)
 	}
