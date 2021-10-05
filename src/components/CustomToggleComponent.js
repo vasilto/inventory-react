@@ -4,11 +4,7 @@ import {CheckboxToggle} from 'react-rainbow-components'
 const CustomToggleComponent = (params) => {
     const [toggleComponentState, settoggleComponentState] = useState(true)
 
-    function handleOnChange(event) {
-        settoggleComponentState(!toggleComponentState)
-    }
-
-    function handleOnClick(event) {
+    function handleOnChange() {
         settoggleComponentState(!toggleComponentState)
     }
 

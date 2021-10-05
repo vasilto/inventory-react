@@ -65,6 +65,13 @@ export default class AddNewMedicament extends Component {
         })
     }
 
+    handleDisableDatepicker = (event) => {
+        event.preventDefault()
+        debugger;
+        console.log(event.target.elements.doesExpireAfterOpen.checked)
+        return event.target.elements.doesExpireAfterOpen.checked
+    }
+
     render(){
 
         return(
@@ -118,7 +125,9 @@ export default class AddNewMedicament extends Component {
                             <Form.Group>
                                 <DatePickerComponent
                                 name="AfterOpenExpirationDatePicker"
-                                label="годен до - след отваряне"/>
+                                label="годен до - след отваряне"
+                                disabled="true"
+                               />
                             </Form.Group>
                         </Col>
                     </Form.Row>

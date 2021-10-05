@@ -8,6 +8,7 @@ export default class DatePickerComponent extends React.Component {
 	}
 	 
 	render() {
+		debugger;
 		return (
 			<div className="rainbow-p-vertical_small rainbow-p-horizontal_xx-small rainbow-m-horizontal_xx-large">
 				<DatePicker
@@ -16,7 +17,9 @@ export default class DatePickerComponent extends React.Component {
 					label={this.props.label}
 					onChange={value => this.setState({ date: value })} 
 					name={this.props.name}
-					locale="en-US"/>
+					locale="en-US"
+					disabled={this.props.disabled}
+					/>
 					
 			</div>
 		)
