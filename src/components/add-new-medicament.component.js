@@ -1,24 +1,24 @@
-import { Component } from "react";
-import React, { useState } from 'react';
-
-import {Button} from 'react-rainbow-components'
+import React, { Component } from 'react';
+import { Button, Notification } from 'react-rainbow-components';
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/esm/Col';
-import DatePickerComponent from './DatePicker.component'
-import ResetButtonComponent from './ResetButton.component'
-import SaveButtonComponent from './SaveButtonComponent'
-import CustomSelectComponent from './CustomSelectComponent'
-import CustomInputComponent from "./CustomInputComponent";
-import CustomTextAreaComponent from "./CustomTextAreaComponent";
-import CustomToggleComponent from "./CustomToggleComponent";
-import './style.css'
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import DatePickerComponent from './DatePicker.component';
+import ResetButtonComponent from './ResetButton.component';
+import SaveButtonComponent from './SaveButtonComponent';
+import CustomSelectComponent from './CustomSelectComponent';
+import CustomInputComponent from './CustomInputComponent';
+import CustomTextAreaComponent from './CustomTextAreaComponent';
+import CustomToggleComponent from './CustomToggleComponent';
+import './style.css';
 const axios = require('axios').default;
 
-
 export default class AddNewMedicament extends Component {
-    constructor(props) {
-        super(props);
-    }
+    state = {
+        showToast: false,
+        toastMessage: '',
+        toastVariant: 'success'
+    };
 
     categories = [
         { value: 'feverPain', label: 'Болка/Температура' },
@@ -32,7 +32,7 @@ export default class AddNewMedicament extends Component {
         { value: 'puke', label: 'Повръщане' },
         { value: 'indigestion', label: 'Разстройство' },
         { value: 'other', label: 'Друго' }
-    ]
+    ];
 
     types = [
         { value: 'antibiotic', label: 'Антибиотик' },
@@ -41,137 +41,123 @@ export default class AddNewMedicament extends Component {
         { value: 'bilka', label: 'Билково (не инвазивно)' },
         { value: 'drug', label: 'Лекарство' },
         { value: 'other', label: 'Друго' }
-        ]
+    ];
 
-    handleSubmit = (event) => {
-        event.preventDefault()
-        var medicament = {
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const medicament = {
             name: event.target.elements.mediName.value,
             manufacturer: event.target.elements.manufacturer.value,
             description: event.target.elements.mediDesc.value,
             type: event.target.elements.types.value,
-            category:event.target.elements.categories.value,
+            category: event.target.elements.categories.value,
             expirationDate: event.target.elements.expirationDatePicker.value,
             doesExpireAfterOpen: event.target.elements.doesExpireAfterOpen.checked,
-            expirationDateAfterOpen:event.target.elements.AfterOpenExpirationDatePicker.value,
+            expirationDateAfterOpen: event.target.elements.AfterOpenExpirationDatePicker.value,
             isRunningOut: event.target.elements.isRunningOut.checked,
             isAvailable: event.target.elements.isAvailable.checked
-        }
-        console.log(medicament)
+        };
+        console.log(medicament);
 
-        const response = axios.post("http://localhost:5000/medicaments/add", medicament)
-        .catch(err=> {
+        try {
+            const response = await axios.post("http://localhost:5000/medicaments/add", medicament);
+            console.log(response.data);
+            this.setState({
+                showToast: true,
+                toastMessage: 'Medicament added successfully!',
+                toastVariant: 'success'
+            });
+        } catch (err) {
             console.error(err);
-        })
-    }
+            this.setState({
+                showToast: true,
+                toastMessage: `Error: ${err.response ? err.response.status : 'Network Error'}`,
+                toastVariant: 'error'
+            });
+        }
+
+        setTimeout(() => {
+            this.setState({ showToast: false });
+        }, 10000);
+    };
 
     handleDisableDatepicker = (event) => {
-        event.preventDefault()
-        debugger;
-        console.log(event.target.elements.doesExpireAfterOpen.checked)
-        return event.target.elements.doesExpireAfterOpen.checked
-    }
+        event.preventDefault();
+        console.log(event.target.elements.doesExpireAfterOpen.checked);
+        return event.target.elements.doesExpireAfterOpen.checked;
+    };
 
-    render(){
-
-        return(
+    render() {
+        return (
             <div className="App container">
                 <Form id="add-medicament-form" onSubmit={this.handleSubmit}>
-                    <Form.Row className="row-xs-3">  
-                        <Col> 
+                    <Row className="row-xs-3">
+                        <Col>
                             <Form.Group>
-                                <CustomSelectComponent 
-                                name="categories"
-                                options={this.categories}/>
-                            </Form.Group>
-                        </Col>
-                        <Col> 
-                            <Form.Group>
-                                <CustomSelectComponent 
-                                name="types"
-                                options={this.types}/>
+                                <CustomSelectComponent name="categories" options={this.categories} />
                             </Form.Group>
                         </Col>
                         <Col>
-                            <CustomInputComponent
-                            placeholder="Име на медикамента"
-                            name="mediName"
-                            />
+                            <Form.Group>
+                                <CustomSelectComponent name="types" options={this.types} />
+                            </Form.Group>
                         </Col>
                         <Col>
-                            <CustomInputComponent
-                            placeholder="Производител"
-                            name="manufacturer"
-                            />
+                            <CustomInputComponent placeholder="Име на медикамента" name="mediName" />
                         </Col>
-                    </Form.Row> 
-                    <Form.Row>
+                        <Col>
+                            <CustomInputComponent placeholder="Производител" name="manufacturer" />
+                        </Col>
+                    </Row>
+                    <Row>
                         <Col>
                             <Form.Group controlId="medicamentDescription">
-                                <CustomTextAreaComponent
-                                placeholder="Описание" 
-                                name="mediDesc"
-                                rows={6}
-                                />                                
+                                <CustomTextAreaComponent placeholder="Описание" name="mediDesc" rows={6} />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group>
-                                <DatePickerComponent
-                                name="expirationDatePicker"
-                                label="Годен до"/>
+                                <DatePickerComponent name="expirationDatePicker" label="Годен до" />
                             </Form.Group>
-
                             <Form.Group>
-                                <DatePickerComponent
-                                name="AfterOpenExpirationDatePicker"
-                                label="годен до - след отваряне"
-                                disabled="true"
-                               />
+                                <DatePickerComponent name="AfterOpenExpirationDatePicker" label="годен до - след отваряне" disabled={true} />
                             </Form.Group>
                         </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        
-                        
+                    </Row>
+                    <Row>
                         <Col>
-                            <Form.Row>
-                                <CustomToggleComponent
-                                id="tg-1"
-                                name="isAvailable"
-                                label="Налично ли е"/>
-                            </Form.Row>
-                            <Form.Row>
-                                <CustomToggleComponent
-                                id="tg-2"
-                                name="doesExpireAfterOpen"
-                                label="Разваля ли се след отваряне"/>
-                            </Form.Row>
-
-                            <Form.Row>
-                                <CustomToggleComponent
-                                id="tg-2"
-                                name="isRunningOut"
-                                label="Свършва ли"/>
-                            </Form.Row>
+                            <Row>
+                                <CustomToggleComponent id="tg-1" name="isAvailable" label="Налично ли е" />
+                            </Row>
+                            <Row>
+                                <CustomToggleComponent id="tg-2" name="doesExpireAfterOpen" label="Разваля ли се след отваряне" />
+                            </Row>
+                            <Row>
+                                <CustomToggleComponent id="tg-2" name="isRunningOut" label="Свършва ли" />
+                            </Row>
                         </Col>
-
                         <Col>
-                            <Form.Row className="rightSideDiv">
-                            <Col>
-                                <ResetButtonComponent/>
-                            </Col>
-                            
-                            <Col>
-                                <SaveButtonComponent/>
-                            </Col>
-                            </Form.Row>
-                            
+                            <Row className="rightSideDiv">
+                                <Col>
+                                    <ResetButtonComponent />
+                                </Col>
+                                <Col>
+                                    <SaveButtonComponent />
+                                </Col>
+                            </Row>
                         </Col>
-                    </Form.Row>
-                    
+                    </Row>
                 </Form>
+                {this.state.showToast && (
+                    <Notification
+                        title={this.state.toastMessage}
+                        description=""
+                        icon={this.state.toastVariant === 'success' ? 'success' : 'error'}
+                        onRequestClose={() => this.setState({ showToast: false })}
+                        variant={this.state.toastVariant}
+                    />
+                )}
             </div>
-        )   
-    }   
+        );
+    }
 }
