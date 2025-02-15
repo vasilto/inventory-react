@@ -27,7 +27,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "start-legacy": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_OPTIONS=--max-old-space-size=8192 react-scripts start",
+    "start-legacy": "cross-env NODE_OPTIONS=\"--openssl-legacy-provider --max-old-space-size=8192\" react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
